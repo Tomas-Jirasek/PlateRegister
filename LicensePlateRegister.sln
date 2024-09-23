@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{788D4F97-A23B-4B73-A27C-1B5AA561C080}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DriverRegisterKiosk", "DriverRegisterKiosk\DriverRegisterKiosk.csproj", "{1B5A549D-2D62-4612-B765-21AC8525F88A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{788D4F97-A23B-4B73-A27C-1B5AA561C080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788D4F97-A23B-4B73-A27C-1B5AA561C080}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788D4F97-A23B-4B73-A27C-1B5AA561C080}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788D4F97-A23B-4B73-A27C-1B5AA561C080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B5A549D-2D62-4612-B765-21AC8525F88A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84305FA3-DE7A-4933-BC1B-112DFFB87097}
+	EndGlobalSection
+EndGlobal

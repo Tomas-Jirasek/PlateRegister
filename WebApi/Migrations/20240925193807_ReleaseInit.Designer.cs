@@ -11,8 +11,8 @@ using WebApi.DbContexts;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(PlatesDbContext))]
-    [Migration("20240920191207_EndTimeCannotBeNullable")]
-    partial class EndTimeCannotBeNullable
+    [Migration("20240925193807_ReleaseInit")]
+    partial class ReleaseInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

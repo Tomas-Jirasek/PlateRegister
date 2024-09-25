@@ -21,8 +21,13 @@ namespace WebApi
 
             // Configure the HTTP request pipeline.
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<PlatesDbContext>();
+                dbContext.Database.Migrate();
+            }
             app.UseHttpsRedirection();
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+using WebApi.Interfaces;
 
 namespace WebApi.Entities
 {
-    public class Plate
+    public class Plate : IHasUtcStartEndDateTime
     {
         [Key]
         public Guid Id {  get; set; }
@@ -14,9 +15,9 @@ namespace WebApi.Entities
 
         [Required]
         [MaxLength(200)]
-        public required DateTime StartTime { get; set; }
+        public required DateTime StartTime { get; set; }    // UTC format
 
-        public DateTime EndTime { get; set; }
+        public DateTime EndTime { get; set; }   // UTC format
         public TimeSpan WorkedTime { get; set; }
 
         public bool IsActive { get; set; }

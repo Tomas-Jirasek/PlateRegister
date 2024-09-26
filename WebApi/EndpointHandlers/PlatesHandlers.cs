@@ -6,6 +6,7 @@ using OfficeOpenXml.Style;
 using System.Security.Claims;
 using WebApi.DbContexts;
 using WebApi.Entities;
+using WebApi.Extensions;
 using WebApi.Models;
 
 namespace WebApi.EndpointHandlers
@@ -17,9 +18,13 @@ namespace WebApi.EndpointHandlers
             IMapper mapper,
             string? licenseText)
         {
-            return TypedResults.Ok(mapper.Map<IEnumerable<PlateDto>>(await platesDbContext.Plates
+            var platesFromContext = await platesDbContext.Plates
                 .Where(p => licenseText == null || p.LicenseText.Contains(licenseText))
-                .ToListAsync()));
+                .ToListAsync();
+
+            var platesWithLocalTimes = platesFromContext.ConvertEnumerableUtcToLocal();
+            
+            return TypedResults.Ok(mapper.Map<IEnumerable<PlateDto>>(platesWithLocalTimes));
         }
 
         public static async Task<Results<NotFound, Ok<PlateDto>>> GetPlateByIdAsync(
@@ -32,15 +37,25 @@ namespace WebApi.EndpointHandlers
             {
                 return TypedResults.NotFound();
             }
+
+            plateEntity.ConvertItemUtcToLocal();
+
             return TypedResults.Ok(mapper.Map<PlateDto>(plateEntity));
         }
 
-        public static async Task<Ok<PlateDto>> GetPlateByLicenseTextAsync(
+        public static async Task<Results<NotFound, Ok<PlateDto>>> GetPlateByLicenseTextAsync(
             PlatesDbContext platesDbContext,
             string licenseText,
             IMapper mapper)
         {
-            return TypedResults.Ok(mapper.Map<PlateDto>(await platesDbContext.Plates.FirstOrDefaultAsync(p => p.LicenseText == licenseText)));
+            var plateEntity = await platesDbContext.Plates.FirstOrDefaultAsync(p => p.LicenseText == licenseText);
+            if (plateEntity == null)
+            {
+                return TypedResults.NotFound();
+            }
+            plateEntity.ConvertItemUtcToLocal();
+
+            return TypedResults.Ok(mapper.Map<PlateDto>(plateEntity));
         }
 
         public static async Task<CreatedAtRoute<PlateDto>> CreatePlateAsync(
@@ -50,8 +65,6 @@ namespace WebApi.EndpointHandlers
         {
             var plateEntity = mapper.Map<Plate>(plateForCreationDto);
 
-            //string formattedStartTime = $"{DateTime.UtcNow.ToString("dd.MM.yyyy")}";
-            
             plateEntity.StartTime = DateTime.UtcNow;
             plateEntity.IsActive = true;
 
@@ -136,7 +149,9 @@ namespace WebApi.EndpointHandlers
             PlatesDbContext platesDbContext)
         {
             var plates = await platesDbContext.Plates.ToListAsync();
-            
+
+            plates.ConvertEnumerableUtcToLocal();
+
             var platesToExport = plates.OrderBy(plate => plate.StartTime.Year)
                                       .ThenBy(plate => plate.StartTime.Month)
                                       .ThenBy(plate => plate.StartTime.Day)
